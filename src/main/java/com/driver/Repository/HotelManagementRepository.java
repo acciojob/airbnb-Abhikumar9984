@@ -51,7 +51,7 @@ public class HotelManagementRepository {
     }
 
     public int bookRoom(Booking booking){
-        bookingDb.put(booking.getBookingId(), booking);
+
         String hotelName  = booking.getHotelName();
         Hotel  hotel  = hotelDb.get(hotelName);
         int availableRooms  = hotel.getAvailableRooms();
@@ -59,9 +59,8 @@ public class HotelManagementRepository {
 
         if(numOfRoom>availableRooms) return -1;
 
-
         int pricePerNight  = hotel.getPricePerNight();
-
+        bookingDb.put(booking.getBookingId() , booking);
         return pricePerNight*numOfRoom;
     }
 
