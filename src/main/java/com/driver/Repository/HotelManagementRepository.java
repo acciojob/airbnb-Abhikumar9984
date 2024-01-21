@@ -6,6 +6,7 @@ import com.driver.model.Hotel;
 import com.driver.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class HotelManagementRepository {
 
     HashMap<String , Hotel> hotelDb  = new HashMap<>();
     HashMap<Integer , User> userDb  = new HashMap<>();
-
     HashMap<String , Booking> bookingDb  = new HashMap<>();
     public String addHotelToDb(Hotel hotel){
         if(hotel==null || hotel.getHotelName()==null) return "FAILURE";
@@ -76,5 +76,19 @@ public class HotelManagementRepository {
         return count;
     }
 
+    public Hotel updateFacilities(List<Facility> facilities , String hotelName){
+         Hotel hotel  = hotelDb.get(hotelName);
+         List<Facility> temp  = hotel.getFacilities();
+         List<Facility> uniqueFacility  = new ArrayList<>();
+
+         for(Facility facility : facilities){
+             if(uniqueFacility.contains(facility)==false && temp.contains(facility) == false){
+                  temp.add(facility);
+                  uniqueFacility.add(facility);
+             }
+         }
+         hotelDb.put(hotel.getHotelName() , hotel);
+         return hotel;
+    }
 
 }
